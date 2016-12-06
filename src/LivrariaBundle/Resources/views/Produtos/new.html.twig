@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Cadastrar Novo Produto</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Criar" class="btn btn-success"/>
+        <a href="{{ path('produtos_index') }}" class="btn btn-danger">
+            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Voltar
+        </a>
+    {{ form_end(form) }}
+
+{% endblock %}
