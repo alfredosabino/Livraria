@@ -3,9 +3,10 @@
 namespace LivrariaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Description of Produtos
+ *  Description of Produtos
  *
  * @author aluno
  * 
@@ -23,21 +24,33 @@ class Produtos
     
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank(message="É obrigatório informar um nome para o Produto")
      */
     private $nome;
     
     /**
      * @ORM\Column(type="integer", length=6)
+     * @Assert\NotBlank(message="É obrigatório informar um quantidade para o Produto")
+     * @Assert\GreaterThanOrEqual(
+     *      value = 0,
+     *      message="A quantidade deve ser maior ou igual a 0"
+     * )
      */
     private $quantidade;
     
     /**
      * @ORM\Column(type="decimal", scale=2)
+     * @Assert\NotBlank(message="É obrigatório informar um preço para o Produto")
+     * @Assert\GreaterThanOrEqual(
+     *      value = 0,
+     *      message="A quantidade deve ser maior ou igual a 0"
+     * )
      */
     private $preco;
     
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="É obrigatório informar um tipo para o Produto")
      */
     private $tipo;
     
@@ -45,6 +58,13 @@ class Produtos
      * @ORM\Column(type="string")
      */
     private $imagem;
+    
+     /**
+     * @ORM\ManyToOne(targetEntity="Genero")
+     * @ORM\JoinColumn(name="genero_id", referencedColumnName="id")
+     * @Assert\NotBlank(message="É obrigatório informar um genero para o Produto")
+     */
+    private $genero;
     
 
     /**
@@ -175,5 +195,29 @@ class Produtos
     public function getImagem()
     {
         return $this->imagem;
+    }
+
+    /**
+     * Set genero
+     *
+     * @param \LivrariaBundle\Entity\Genero $genero
+     *
+     * @return Produtos
+     */
+    public function setGenero(\LivrariaBundle\Entity\Genero $genero = null)
+    {
+        $this->genero = $genero;
+
+        return $this;
+    }
+
+    /**
+     * Get genero
+     *
+     * @return \LivrariaBundle\Entity\Genero
+     */
+    public function getGenero()
+    {
+        return $this->genero;
     }
 }
